@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-colorfield',
-    version='0.3',
+    version='0.4',
     description="A django app to manage adverts according to zones on a website.",
     author='Ruslan Popov',
     author_email='ruslan.popov@gmail.com',
