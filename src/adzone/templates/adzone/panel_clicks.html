@@ -4,46 +4,10 @@
 {% load url from future %}
 
 {% block module_content %}
+    <script language="javascript" type="text/javascript" src="{% static "js/jquery-1.7.1.min.js" %}"></script>
     <script language="javascript" type="text/javascript" src="{% static "adzone/js/raphael/raphael-min.js" %}"></script>
     <script language="javascript" type="text/javascript" src="{% static "adzone/js/raphael/g.raphael-min.js" %}"></script>
     <script language="javascript" type="text/javascript" src="{% static "adzone/js/raphael/g.line-min.js" %}"></script>
-
-    <div id="adzone-clicks"></div>
-
-    <script language="javascript" type="text/javascript">
-    (function($){
-        $(document).ready(function(){
-            var adzone_click_chart = function() {
-                var r = Raphael('adzone-clicks'),
-                    txtattr = { font: '12px sans-serif' },
-                    data = {{ module.children|safe }},
-                    ad_series = [];
-
-                for (var i=0; i<data.length; i++) {
-                    var values = [], labels = [];
-                    var base_title = data[i][0];
-                    var base_items = data[i][1];
-                    for (var j=0; j<base_items.length; i++) {
-                        labels.push(base_items[i][0]);
-                        values.push(base_items[i][1]);
-                    }
-                    ad_series.push([labels, values]);
-                }
-
-                var lines = r.linechart(0, 0, 300, 220, ad_series,
-                    { nostroke: false, axis: "0 0 1 1", symbol: "circle", smooth: true }
-                    ).hoverColumn(function () {
-                        this.tags = r.set();
-
-                        for (var i = 0, ii = this.y.length; i < ii; i++) {
-                            this.tags.push(r.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
-                        }
-                    }, function () {
-                        this.tags && this.tags.remove();
-                    });
-            };
-            setTimeout(adzone_click_chart, 2000);
-        });
-    })(jQuery);
-    </script>
+    <script language="javascript" type="text/javascript" src="{% static "adzone/js/clicks.js" %}"></script>
+    <div id="adzone_clicks" style="height: 300px;"></div>
 {% endblock %}
